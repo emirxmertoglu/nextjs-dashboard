@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import { lusitana } from "@/app/ui/fonts";
+import { CustomerRaw } from "@/app/lib/definitions";
 
 export const metadata: Metadata = {
   title: "Customers",
@@ -6,11 +8,11 @@ export const metadata: Metadata = {
 
 async function fetchCustomers() {
   try {
-    console.log("started to fetch customers");
     await new Promise((resolve) => setTimeout(resolve, 3000));
-    const response = await fetch("https://jsonplaceholder.typicode.com/users");
+    const response = await fetch("https://jsonplaceholder.typicode.com/users", {
+      cache: "no-store",
+    });
     const data = await response.json();
-    console.log("finished fetching customers in 3 seconds");
     return data;
   } catch (error) {
     console.error("Database Error:", error);
@@ -23,9 +25,9 @@ export default async function Page() {
 
   return (
     <div>
-      <h1 className="text-3xl text-blue-500">Customers</h1>
+      <h1 className={`${lusitana.className} text-2xl`}>Customers</h1>
       <ul>
-        {customers.map((customer: any) => (
+        {customers.map((customer: CustomerRaw) => (
           <li key={customer.id}>{customer.name}</li>
         ))}
       </ul>
