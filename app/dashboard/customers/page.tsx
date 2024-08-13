@@ -9,9 +9,7 @@ export const metadata: Metadata = {
 async function fetchCustomers() {
   try {
     await new Promise((resolve) => setTimeout(resolve, 3000));
-    const response = await fetch("https://jsonplaceholder.typicode.com/users", {
-      cache: "no-store",
-    });
+    const response = await fetch("https://jsonplaceholder.typicode.com/users");
     const data = await response.json();
     return data;
   } catch (error) {
